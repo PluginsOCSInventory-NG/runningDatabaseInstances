@@ -1,0 +1,10 @@
+{
+  "displayName" : "Running Database Instances",
+  "author" : ["Frank BOURDEAU"],
+  "contributor" : [],
+  "supportedAgent" : ["Windows"],
+  "description" : {
+    "fr" : "Recupere les bases de donnees presentes sur la machine",
+    "en" : "Retrieve running databases instances"
+  }
+}
