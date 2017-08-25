@@ -1,8 +1,21 @@
-'-------------------------------------------------------------------------------
-' OCSINVENTORY-NG
-' Web : http://www.ocsinventory-ng.org
-'
-' Liste les bases de données SQL Server du poste
+'----------------------------------------------------------
+' Plugin for OCS Inventory NG 2.x
+' Script :		Liste les bases de données SQL Server du poste
+' Version :		1.00
+' Date :		   21/10/2011
+' Author :		Sylvie Grimonpont
+'----------------------------------------------------------
+' OS checked [X] on	32b	64b	(Professionnal edition)
+'	Windows XP		   [ ]
+'	Windows Vista	   [ ]	[ ]
+'	Windows 7		   [ ]	[ ]
+'	Windows 8.1		   [ ]	[ ]	
+'	Windows 10		   [ ]	[ ]
+'	Windows 2k8R2		      [ ]
+'	Windows 2k12R2		      [ ]
+'	Windows 2k16		      [ ]
+' ---------------------------------------------------------
+' NOTE : No checked on Windows 8
 '  4 données sont remontées :
 '  - strSQLName :     Nom long du produit SQL Server
 '                     Par exemple : "Microsoft SQL Server 2008 R2"
@@ -12,16 +25,7 @@
 '                     Par exemple : "Enterprise Edition (64-bit)"
 '  - strVersion :     Version "chiffrée".
 '                     Par exemple : "8.00.194"
-'
-' Auteur  : Sylvie Grimonpont
-' Date    : 21-10-2011
-' Version : 1.0.0
-'
-' This code is open source and may be copied and modified as long as the source
-' code is always made freely available.
-' Please refer to the General Public Licence http://www.gnu.org/ or Licence.txt
-'-------------------------------------------------------------------------------
-
+' ---------------------------------------------------------
 On Error Resume Next
 
 'Déclaration des constantes
