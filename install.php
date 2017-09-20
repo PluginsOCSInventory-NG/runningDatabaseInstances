@@ -2,7 +2,7 @@
 function plugin_version_runningDatabaseInstances()
 {
 return array('name' => 'Running Database Instances',
-'version' => '1.0',
+'version' => '1.1',
 'author'=> 'Community, Frank BOURDEAU',
 'license' => 'GPLv2',
 'verMinOcs' => '2.2');
