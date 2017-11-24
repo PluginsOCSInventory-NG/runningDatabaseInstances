@@ -4,7 +4,7 @@
   "contributor" : [],
   "supportedAgent" : ["Windows"],
   "description" : {
-    "fr" : "Recupere les bases de donnees presentes sur la machine",
+    "fr" : "Récupère les bases de données présentes sur la machine",
     "en" : "Retrieve running databases instances"
   }
 }
