@@ -5,13 +5,13 @@
 ' Liste les bases de données SQL Server du poste
 '  4 données sont remontées :
 '  - strSQLName :      Nom long du produit SQL Server
-'                            Par exple : "Microsoft SQL Server 2008 R2"
+'                            Par exemple : "Microsoft SQL Server 2008 R2"
 '  - strServiceName : Nom de l'instance
-'                            Par exple : "MSSQLSERVER"
+'                            Par exemple : "MSSQLSERVER"
 '  - strEdition :      Edition.
-'                            Par exple : "Enterprise Edition (64-bit)"
+'                            Par exemple : "Enterprise Edition (64-bit)"
 '  - strVersion :      Version "chiffrée".
-'                            Par exple : "8.00.194"
+'                            Par exemple : "8.00.194"
 '
 Const PluginAuthor  = "Sylvie Cozic"
 Const PluginDate    = "23/03/2018"
