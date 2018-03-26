@@ -86,25 +86,23 @@ dicInstalledSoftwares.CompareMode = 0
 
 ' Remontée des informations du plugin dans la table SOFTWARES
 arrScriptName = Split(Wscript.ScriptName,".")
-Wscript.Echo "<SOFTWARES>"
-Wscript.Echo "<PUBLISHER>Sylvie Cozic</PUBLISHER>"
-Wscript.Echo "<NAME>" & arrScriptName(0) & "</NAME>"
-Wscript.Echo "<VERSION>" & PluginVersion & "</VERSION>"
-Wscript.Echo "<COMMENTS>Data out of OCS Plugin</COMMENTS>"
-Wscript.Echo "</SOFTWARES>"
-
-' Initialisation des variables
-strSourceServer = "."
+Result = "<SOFTWARES>" & VbCrLf
+Result = Result & "<PUBLISHER>Sylvie Cozic</PUBLISHER>" & VbCrLf
+Result = Result & "<NAME>" & arrScriptName(0) & "</NAME>" & VbCrLf
+Result = Result & "<VERSION>" & PluginVersion & "</VERSION>" & VbCrLf
+Result = Result & "<COMMENTS>Data out of OCS Plugin</COMMENTS>" & VbCrLf
+Result = Result & "</SOFTWARES>"
+WScript.Echo Result
 
 ' Recherche d'un service ayant sqlservr.exe dans son path. Si ce service n'existe pas, aucune base sql ne tourne.
-Set objWMIcimv2  = GetObject("winmgmts:{impersonationLevel=impersonate}!\\" & strSourceServer & "\root\cimv2")
+Set objWMIcimv2 = GetObject("winmgmts:root\cimv2")
 If Err = 0 Then
 
     Set colServices = objWMIcimv2.ExecQuery("Select Name , PathName from Win32_Service Where PathName Like '%sqlservr.exe%'")
     If Err = 0 Then
         If colServices.count > 0 Then
             If Err = 0 Then
-                'Wscript.Echo "SQL Server trouvé !"
+                'WScript.Echo "SQL Server trouvé !"
                 For Each objService in colServices
                     ' ServiceName
                     strServiceName = objService.Name
@@ -130,7 +128,8 @@ If Err = 0 Then
                     Set colSQLFile = objWMIcimv2.ExecQuery ( strCIMDatafile )
                     If Err = 0 Then
                         For Each objSQLFile in colSQLFile
-                            If Not IsNull(objSQLFile.Version) Then
+                            ' WScript.Echo "Version objSQLFile (l. 131) : " & objSQLFile.Version
+							If Not IsNull(objSQLFile.Version) Then
                                 arrSQLFileVersion=Split(objSQLFile.Version,".")
                                 strSQLFileVersion=Cint(arrSQLFileVersion(1))
                             Else
@@ -147,12 +146,14 @@ If Err = 0 Then
                             ' Positionne la classe WMI SqlServer en fonction de la version du fichier sqlservr.exe
                             If strSQLFileVersion = 90 Then strWMIsql = "ComputerManagement"
                             If strSQLFileVersion > 90 Then strWMIsql = "ComputerManagement10"
+							If strSQLFileVersion = 130 Then strWMIsql = "ComputerManagement13"
+							If strSQLFileVersion = 140 Then strWMIsql = "ComputerManagement14"
 
                             ' Recherche la version et l'édition de la base SQL via la classe WMI SqlServer si disponible
-                            If (strWMIsql <> "") Then
+							If (strWMIsql <> "") Then
                                 ' Si on a eu une erreur entre temps, on efface
                                 Err.Clear
-                                Set objWMIsql = GetObject("winmgmts:{impersonationLevel=impersonate}!\\" & strSourceServer & "\root\Microsoft\SqlServer\" & strWMIsql)
+                                Set objWMIsql = GetObject("winmgmts:root\Microsoft\SqlServer\" & strWMIsql)
                                 If Err = 0 Then
                                     For Each prop in objWMIsql.ExecQuery("select * from SqlServiceAdvancedProperty Where SQLServiceType = 1 And ServiceName='" & objService.Name & "'")
                                         If Err = 0 Then
@@ -188,7 +189,7 @@ If Err = 0 Then
 
                                 ' Tente la recherche le répertoire des ERRORLOG dans la base de registre
                                 If strErrorlogPath = "" Then
-                                     Set objRegistry = GetObject("winmgmts:{impersonationLevel=impersonate}!\\" & strSourceServer & "\root\default:StdRegProv")
+                                     Set objRegistry = GetObject("winmgmts:root\default:StdRegProv")
                                      If objRegistry.EnumKey (HKEY_LOCAL_MACHINE, strMSSQLServerRegKey, arrSubKeys) = 0 Then
                                          strErrorlogFile = ""
                                          objRegistry.EnumValues HKEY_LOCAL_MACHINE, strMSSQLServerRegKey, arrValueNames, arrValueTypes
@@ -242,7 +243,8 @@ If Err = 0 Then
                             End If
 
                             ' Récupération du nom SQL Server
-                            If Left(strVersion,3) = "6.5" Then
+                            ' WScript.Echo "Version de SQL : " & strVersion
+							If Left(strVersion,3) = "6.5" Then
                                 strSQLName = "Microsoft SQL Server 6.5"
                             ElseIf Left(strVersion,1) = "7" Then
                                 strSQLName = "Microsoft SQL Server 7.0"
@@ -295,21 +297,23 @@ If Err = 0 Then
                             ' Le format remonté est spécifique à un process interne. A vous d'adapter en fonction de vos besoins. :-)
 
                             ' On garde <DBINSTANCES> pour le côté ergonomique sur l'interface Web OCS
-                            Wscript.Echo "<DBINSTANCES>"
-                            Wscript.Echo "<PUBLISHER>Microsoft Corporation</PUBLISHER>"
-                            Wscript.Echo "<NAME>" & strSQLName & strServicePack & "</NAME>"
-                            Wscript.Echo "<VERSION>" & strVersion & "</VERSION>"
-                            Wscript.Echo "<EDITION>" & strEdition & "</EDITION>"
-                            Wscript.Echo "<INSTANCE>" & strServiceName & "</INSTANCE>"
-                            Wscript.Echo "</DBINSTANCES>"
+							Result = "<DBINSTANCES>" & VbCrLf
+							Result = Result & "<PUBLISHER>Microsoft Corporation</PUBLISHER>" & VbCrLf
+							Result = Result & "<NAME>" & strSQLName & strServicePack & "</NAME>" & VbCrLf
+							Result = Result & "<VERSION>" & strVersion & "</VERSION>" & VbCrLf
+							Result = Result & "<EDITION>" & strEdition & "</EDITION>" & VbCrLf
+							Result = Result & "<INSTANCE>" & strServiceName & "</INSTANCE>" & VbCrLf
+							Result = Result & "</DBINSTANCES>"
+							WScript.Echo Result
 
                             ' Remontée dans la table SOFTWARES (fonctionne à partir de la version 2.1.0 de l'agent Windows)
-                            Wscript.Echo "<SOFTWARES>"
-                            Wscript.Echo "<PUBLISHER>Microsoft Corporation</PUBLISHER>"
-                            Wscript.Echo "<NAME>" & strSQLName & strServicePack & strEdition & "</NAME>"
-                            Wscript.Echo "<VERSION>" & strVersion & "</VERSION>"
-                            Wscript.Echo "<COMMENTS>Data out of OCS Plugin</COMMENTS>"
-                            Wscript.Echo "</SOFTWARES>"
+                            Result = "<SOFTWARES>" & VbCrLf
+                            Result = Result & "<PUBLISHER>Microsoft Corporation</PUBLISHER>" & VbCrLf
+                            Result = Result & "<NAME>" & strSQLName & strServicePack & strEdition & "</NAME>" & VbCrLf
+                            Result = Result & "<VERSION>" & strVersion & "</VERSION>" & VbCrLf
+                            Result = Result & "<COMMENTS>Data out of OCS Plugin</COMMENTS>" & VbCrLf
+                            Result = Result & "</SOFTWARES>"
+							WScript.Echo Result
 
                         Next
                     Else
@@ -323,11 +327,11 @@ If Err = 0 Then
             ' Aucun service SQL Server trouvé.
             ' Si des produits SQL Server sont installés, on précise dans DBInstance qu'aucun service ne tourne pour ces produits.
 
-            'Wscript.Echo "Aucun SQL Server trouvé !"
+            'WScript.Echo "Aucun SQL Server trouvé !"
             On Error Goto 0
 
             'Parcours les logiciels installés
-            Set objReg=GetObject("winmgmts:{impersonationLevel=impersonate}!\\" & strSourceServer & "\root\default:StdRegProv")
+			Set objReg=GetObject("winmgmts:root\default:StdRegProv")
             colKeyPaths = objUninstallPaths.Items
             For Each strKeyPath in colKeyPaths
                 objReg.EnumKey HKEY_LOCAL_MACHINE, strKeyPath, arrSubKeys
@@ -364,11 +368,12 @@ If Err = 0 Then
                                 Set matchesSQLProduct = regexpSQLProduct.Execute(strDisplayName)
                                 If matchesSQLProduct.Count > 0 Then
                                     ' Ecrit les données de sortie en XML dans la table Dbinstances
-                                    Wscript.Echo "<DBINSTANCES>"
-                                    Wscript.Echo "<PUBLISHER>Microsoft Corporation</PUBLISHER>"
-                                    Wscript.Echo "<NAME>" & strDisplayName & "</NAME>"
-                                    Wscript.Echo "<INSTANCE>Aucun service</INSTANCE>"
-                                    Wscript.Echo "</DBINSTANCES>"
+                                    Result = "<DBINSTANCES>" & VbCrLf &_
+                                    Result = Result & "<PUBLISHER>Microsoft Corporation</PUBLISHER>" & VbCrLf &_
+                                    Result = Result & "<NAME>" & strDisplayName & "</NAME>" & VbCrLf &_
+                                    Result = Result & "<INSTANCE>Aucun service</INSTANCE>" & VbCrLf &_
+                                    Result = Result & "</DBINSTANCES>"
+									WScript.Echo Result
                                 End If
                             End If
                         End If
