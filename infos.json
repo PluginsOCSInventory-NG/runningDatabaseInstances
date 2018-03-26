@@ -1,7 +1,7 @@
 {
   "displayName" : "Running Database Instances",
-  "author" : ["Sylvie GRIMONPONT"],
-  "contributor" : ["Stéphane PAUTREL","Frank BOURDEAU"],
+  "author" : ["Sylvie Grimonpont"],
+  "contributor" : [],
   "supportedAgent" : ["Windows"],
   "description" : {
     "fr" : "Récupère les bases de données présentes sur la machine",
