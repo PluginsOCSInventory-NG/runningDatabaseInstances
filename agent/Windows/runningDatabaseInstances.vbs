@@ -1,7 +1,27 @@
-'-------------------------------------------------------------------------------
-' OCSINVENTORY-NG
+'----------------------------------------------------------
+' Plugin for OCS Inventory NG 2.x
 ' Web : http://www.ocsinventory-ng.org
-'
+' Script : Retrieve SQL Server databases of the station
+' Version : 1.50
+' Date : 23/03/2018
+' Author : Sylvie COZIC
+' Contributors : Frank BOURDEAU (OCS Inventory NG) and Stephane PAUTREL (acb78.com)
+'----------------------------------------------------------
+' OS checked [X] on	32b	64b	(Professionnal edition)
+'	Windows XP		[ ]
+'	Windows Vista	[X]	[X]
+'	Windows 7		[X]	[X]
+'	Windows 8.1		[X]	[X]
+'	Windows 10		[X]	[X]
+'	Windows 2k8R2		[X]
+'	Windows 2k12R2		[X]
+'	Windows 2k16		[X]
+' ---------------------------------------------------------
+' NOTE : No checked on Windows 8
+' ---------------------------------------------------------
+On Error Resume Next
+
+'-------------------------------------------------------------------------------
 ' Liste les bases de données SQL Server du poste
 '  4 données sont remontées :
 '  - strSQLName :      Nom long du produit SQL Server
@@ -12,11 +32,11 @@
 '                            Par exemple : "Enterprise Edition (64-bit)"
 '  - strVersion :      Version "chiffrée".
 '                            Par exemple : "8.00.194"
-'
+
 Const PluginAuthor  = "Sylvie Cozic"
 Const PluginDate    = "23/03/2018"
 Const PluginVersion = "1.5.0"
-'
+
 ' Historique :
 ' 1.0.0 - 21/10/2011 - Sylvie Grimonpont : 
 '         Première version
@@ -44,8 +64,6 @@ Const PluginVersion = "1.5.0"
 ' code is always made freely available.
 ' Please refer to the General Public Licence http://www.gnu.org/ or Licence.txt
 '-------------------------------------------------------------------------------
-
-On Error Resume Next
 
 ' DECLARATIONS
 
