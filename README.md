@@ -1,2 +1,2 @@
-# runningDatabaseInstances
+# Databaseinstances
 Retrieve running database on Windows
