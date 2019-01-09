@@ -5,7 +5,7 @@
         <value>fr_FR</value>
     </hook>
     <hook type="cdentry">
-        <identifier>cd_runningDatabaseInstances</identifier>
+        <identifier>cd_runningdatabaseinstances</identifier>
         <translation>13000</translation>
         <category>other</category>
         <available>dbinstances</available>

@@ -3,7 +3,7 @@
 /**
  * This function is called on installation and is used to create database schema for the plugin
  */
-function extension_install_runningDatabaseInstances()
+function extension_install_runningdatabaseinstances()
 {
     $commonObject = new ExtensionCommon;
     $commonObject->sqlQuery("CREATE TABLE IF NOT EXISTS `dbinstances` (
@@ -24,7 +24,7 @@ function extension_install_runningDatabaseInstances()
 /**
  * This function is called on removal and is used to destroy database schema for the plugin
  */
-function extension_delete_runningDatabaseInstances()
+function extension_delete_runningdatabaseinstances()
 {
     $commonObject = new ExtensionCommon;
     $commonObject->sqlQuery("DROP TABLE `dbinstances`");
@@ -33,7 +33,7 @@ function extension_delete_runningDatabaseInstances()
 /**
  * This function is called on plugin upgrade
  */
-function extension_upgrade_runningDatabaseInstances()
+function extension_upgrade_runningdatabaseinstances()
 {
 
 }
