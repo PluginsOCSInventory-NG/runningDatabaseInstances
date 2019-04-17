@@ -3,6 +3,8 @@
   "author" : ["Sylvie GRIMONPONT"],
   "contributor" : ["Stéphane PAUTREL","Frank BOURDEAU"],
   "supportedAgent" : ["Windows"],
+  "version" : "2.0",
+  "licence" : "GPLv2",
   "description" : {
     "fr" : "Récupère les bases de données présentes sur la machine",
     "en" : "Retrieve running databases instances"

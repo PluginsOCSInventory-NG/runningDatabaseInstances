@@ -1,38 +1,39 @@
 <?php
-function plugin_version_runningDatabaseInstances()
+
+/**
+ * This function is called on installation and is used to create database schema for the plugin
+ */
+function extension_install_runningdatabaseinstances()
 {
-return array('name' => 'Running Database Instances',
-'version' => '1.2',
-'author'=> 'Community, Frank BOURDEAU',
-'license' => 'GPLv2',
-'verMinOcs' => '2.2');
+    $commonObject = new ExtensionCommon;
+    $commonObject->sqlQuery("CREATE TABLE IF NOT EXISTS `dbinstances` (
+                          `ID` INT(11) NOT NULL AUTO_INCREMENT,
+                          `HARDWARE_ID` INT(11) NOT NULL,
+                          `PUBLISHER`   VARCHAR(255)     NULL DEFAULT NULL,
+                          `NAME`        VARCHAR(255)     NULL DEFAULT NULL,
+                          `VERSION`     VARCHAR(255)     NULL DEFAULT NULL,
+                          `EDITION`     VARCHAR(255)     NULL DEFAULT NULL,
+                          `INSTANCE`    VARCHAR(255)     NULL DEFAULT NULL,
+                          PRIMARY KEY  (`ID`,`HARDWARE_ID`),
+                          INDEX `NAME` (`NAME`),
+                          INDEX `VERSION` (`VERSION`),
+                          INDEX `ID` (`ID`)
+                          ) COLLATE='utf8_general_ci' ENGINE=INNODB ROW_FORMAT=DEFAULT;");
 }
 
-function plugin_init_dbinstances()
+/**
+ * This function is called on removal and is used to destroy database schema for the plugin
+ */
+function extension_delete_runningdatabaseinstances()
 {
-$object = new plugins;
-$object->add_cd_entry("dbinstances","other");
-
-$object->sql_query("CREATE TABLE IF NOT EXISTS `dbinstances` (
-                      `ID` INT(11) NOT NULL AUTO_INCREMENT,
-                      `HARDWARE_ID` INT(11) NOT NULL,
-                      `PUBLISHER`   VARCHAR(255)     NULL DEFAULT NULL,
-                      `NAME`        VARCHAR(255)     NULL DEFAULT NULL,
-                      `VERSION`     VARCHAR(255)     NULL DEFAULT NULL,
-                      `EDITION`     VARCHAR(255)     NULL DEFAULT NULL,
-                      `INSTANCE`    VARCHAR(255)     NULL DEFAULT NULL,
-                      PRIMARY KEY  (`ID`,`HARDWARE_ID`),
-                      INDEX `NAME` (`NAME`),
-                      INDEX `VERSION` (`VERSION`),
-                      INDEX `ID` (`ID`) 
-                      ) COLLATE='utf8_general_ci' ENGINE=INNODB ROW_FORMAT=DEFAULT;");
-
+    $commonObject = new ExtensionCommon;
+    $commonObject->sqlQuery("DROP TABLE `dbinstances`");
 }
 
-function plugin_delete_dbinstances()
+/**
+ * This function is called on plugin upgrade
+ */
+function extension_upgrade_runningdatabaseinstances()
 {
-$object = new plugins;
-$object->del_cd_entry("dbinstances");
-$object->sql_query("DROP TABLE `dbinstances`");
 
 }

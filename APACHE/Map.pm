@@ -1,6 +1,6 @@
 
 
-package Apache::Ocsinventory::Plugins::RunningDatabaseInstances;
+package Apache::Ocsinventory::Plugins::Runningdatabaseinstances;
 
 use strict;
 
