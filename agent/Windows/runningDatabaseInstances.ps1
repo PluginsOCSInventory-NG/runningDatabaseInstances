@@ -1,10 +1,14 @@
-﻿$computerName = $env:computername
-
-$edition = "Unknown"
+﻿$edition = "Unknown"
 $version = "Unknown"
 
-$inst = (get-itemproperty 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server').InstalledInstances
-$xml = ""
+$inst = (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server').InstalledInstances
+
+$xml += "<SOFTWARES>"
+$xml += "<PUBLISHER>OCS Inventory Team</PUBLISHER>"
+$xml += "<NAME>DBInstances</NAME>"
+$xml += "<VERSION>2.0</VERSION>"
+$xml += "<COMMENTS>DBInstances plugin</COMMENTS>"
+$xml += "</SOFTWARES>"
 
 foreach ($i in $inst)
 {
@@ -38,19 +42,19 @@ foreach ($i in $inst)
        $serverName = "Microsoft SQL Server " + $version
    }
 
-   $xml += "<DBINSTANCES>`n"
-   $xml += "<NAME>" + $serverName + "</NAME>`n"
-   $xml += "<VERSION>" + $version + "</VERSION>`n"
-   $xml += "<EDITION>" + $edition + "</EDITION>`n"
-   $xml += "<INSTANCE>" + $instanceName + "</INSTANCE>`n"
-   $xml += "</DBINSTANCES>`n"
+   $xml += "<DBINSTANCES>"
+   $xml += "<NAME>" + $serverName + "</NAME>"
+   $xml += "<VERSION>" + $version + "</VERSION>"
+   $xml += "<EDITION>" + $edition + "</EDITION>"
+   $xml += "<INSTANCE>" + $instanceName + "</INSTANCE>"
+   $xml += "</DBINSTANCES>"
 
-   $xml += "<SOFTWARES>`n"
-   $xml += "<PUBLISHER>Microsoft Corporation</PUBLISHER>`n"
-   $xml += "<NAME>" + $serverName + "</NAME>`n"
-   $xml += "<VERSION>" + $version + "</VERSION>`n"
-   $xml += "<COMMENTS>DBInstances plugin</COMMENTS>`n"
-   $xml += "</SOFTWARES>`n"
+   $xml += "<SOFTWARES>"
+   $xml += "<PUBLISHER>Microsoft Corporation</PUBLISHER>"
+   $xml += "<NAME>" + $serverName + "</NAME>"
+   $xml += "<VERSION>" + $version + "</VERSION>"
+   $xml += "<COMMENTS>DBInstances plugin</COMMENTS>"
+   $xml += "</SOFTWARES>"
 
 }
 
