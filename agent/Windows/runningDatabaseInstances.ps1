@@ -43,6 +43,7 @@ foreach ($i in $inst)
    }
 
    $xml += "<DBINSTANCES>"
+   $xml += "<PUBLISHER>Microsoft Corporation</PUBLISHER>"
    $xml += "<NAME>" + $serverName + "</NAME>"
    $xml += "<VERSION>" + $version + "</VERSION>"
    $xml += "<EDITION>" + $edition + "</EDITION>"
