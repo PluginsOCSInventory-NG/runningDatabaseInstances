@@ -1,5 +1,10 @@
-﻿$edition = "Unknown"
+$edition = "Unknown"
 $version = "Unknown"
+
+If (-not (test-path 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server'))
+{
+   exit
+}
 
 $inst = (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server').InstalledInstances
 
