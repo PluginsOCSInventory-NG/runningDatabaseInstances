@@ -316,7 +316,7 @@ If Err = 0 Then
                             ' On garde <DBINSTANCES> pour le côté ergonomique sur l'interface Web OCS
                             Result = "<DBINSTANCES>" & VbCrLf
                             Result = Result & "<PUBLISHER>Microsoft Corporation</PUBLISHER>" & VbCrLf
-                            Result = Result & "<NAME>" & strSQLName & strServicePack & "</NAME>" & VbCrLf
+                            Result = Result & "<VERSION_NAME>" & strSQLName & strServicePack & "</VERSION_NAME>" & VbCrLf
                             Result = Result & "<VERSION>" & strVersion & "</VERSION>" & VbCrLf
                             Result = Result & "<EDITION>" & strEdition & "</EDITION>" & VbCrLf
                             Result = Result & "<INSTANCE>" & strServiceName & "</INSTANCE>" & VbCrLf
@@ -387,7 +387,7 @@ If Err = 0 Then
                                     ' Ecrit les données de sortie en XML dans la table Dbinstances
                                     Result = "<DBINSTANCES>" & VbCrLf &_
                                     Result = Result & "<PUBLISHER>Microsoft Corporation</PUBLISHER>" & VbCrLf &_
-                                    Result = Result & "<NAME>" & strDisplayName & "</NAME>" & VbCrLf &_
+                                    Result = Result & "<VERSION_NAME>" & strDisplayName & "</VERSION_NAME>" & VbCrLf &_
                                     Result = Result & "<INSTANCE>Aucun service</INSTANCE>" & VbCrLf &_
                                     Result = Result & "</DBINSTANCES>"
                                     WScript.Echo Result

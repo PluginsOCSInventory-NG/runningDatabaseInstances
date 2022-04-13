@@ -31,7 +31,7 @@ $tab_options['table_name']=$table_name;
 echo open_form($form_name);
 $list_fields = array(
     'PUBLISHER' => 'PUBLISHER',
-    'NAME' => 'NAME',
+    'VERSION_NAME' => 'VERSION_NAME',
     'VERSION' => 'VERSION',
     'EDITION' => 'EDITION',
     'INSTANCE' => 'INSTANCE'
