@@ -10,12 +10,12 @@ function extension_install_runningdatabaseinstances()
                           `ID` INT(11) NOT NULL AUTO_INCREMENT,
                           `HARDWARE_ID` INT(11) NOT NULL,
                           `PUBLISHER`   VARCHAR(255)     NULL DEFAULT NULL,
-                          `NAME`        VARCHAR(255)     NULL DEFAULT NULL,
+                          `VERSION_NAME` VARCHAR(255)     NULL DEFAULT NULL,
                           `VERSION`     VARCHAR(255)     NULL DEFAULT NULL,
                           `EDITION`     VARCHAR(255)     NULL DEFAULT NULL,
                           `INSTANCE`    VARCHAR(255)     NULL DEFAULT NULL,
                           PRIMARY KEY  (`ID`,`HARDWARE_ID`),
-                          INDEX `NAME` (`NAME`),
+                          INDEX `VERSION_NAME` (`VERSION_NAME`),
                           INDEX `VERSION` (`VERSION`),
                           INDEX `ID` (`ID`)
                           ) COLLATE='utf8_general_ci' ENGINE=INNODB ROW_FORMAT=DEFAULT;");
